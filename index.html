@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reporte</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" type="image/png" />
+</head>
+<body>
+  <div id="app">
+    <img src="logo.png" alt="Logo" width="100">
+    <h1>Reporte</h1>
+    <button onclick="getLocation()">📍 Reportar delito o falta</button>
+    <input id="location" type="text" placeholder="Ubicación GPS" readonly />
+    <input list="delitos" id="tipoDelito" placeholder="Tipo de delito o falta" />
+    <datalist id="delitos">
+      <option value="Pesca ilegal">
+      <option value="Contrabando marítimo">
+      <option value="Robo con violencia">
+      <option value="Hurto">
+      <option value="Riña">
+    </datalist>
+    <div id="datetime"></div>
+    <button onclick="enviarReporte()">📤 Enviar</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
