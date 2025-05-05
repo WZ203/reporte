@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("formulario").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    fetch("https://script.google.com/macros/s/AKfycbcyOtzB7m9ArflaWZqh6qs8L3bLw0qqORKvN3UYHgGpKRIS8oQ_HCFTR9vhJQu1CtwQk/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbOtzB7m9ArflaWZqh6qs8L3bLw0qqORKvN3UYHgGpKRIS8oQ_HCFTR9vhJQu1CtwQk/exec", {
       method: "POST",
       body: JSON.stringify({
         fechaHora: fechaHora.textContent,
