@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const boton = document.querySelector("button");
+  const boton = document.querySelector("button[type='button']");
   const ubicacionInput = document.getElementById("ubicacion");
   const delitoInput = document.getElementById("delito");
   const fechaHora = document.getElementById("fechaHora");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("formulario").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    fetch("https://script.google.com/macros/s/AKfycbOtzB7m9ArflaWZqh6qs8L3bLw0qqORKvN3UYHgGpKRIS8oQ_HCFTR9vhJQu1CtwQk/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyOtzB7m9ArflaWZqh6qs8L3bLw0qqORKvN3UYHgGpKRIS8oQ_HCFTR9vhJQu1CtwQk/exec", {
       method: "POST",
       body: JSON.stringify({
         fechaHora: fechaHora.textContent,
@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(err => {
       alert("Hubo un error al enviar el reporte.");
+      console.error(err);
     });
   });
 });
