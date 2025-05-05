@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const boton = document.querySelector("button[type='button']");
+  const boton = document.querySelector("button");
   const ubicacionInput = document.getElementById("ubicacion");
   const delitoInput = document.getElementById("delito");
   const fechaHora = document.getElementById("fechaHora");
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const ahora = new Date();
   fechaHora.textContent = ahora.toLocaleString("es-CL");
 
-  // Obtener ubicación
+  // Obtener ubicación al hacer clic en el botón
   boton.addEventListener("click", function () {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Enviar datos
+  // Enviar datos a Google Sheets
   document.getElementById("formulario").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(err => {
       alert("Hubo un error al enviar el reporte.");
-      console.error(err);
     });
   });
 });
