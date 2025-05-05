@@ -1,31 +1,54 @@
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      document.getElementById("location").value = position.coords.latitude + ", " + position.coords.longitude;
-    }, () => alert("No se pudo obtener la ubicación."));
-  } else {
-    alert("Tu navegador no soporta GPS.");
-  }
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const boton = document.querySelector("button");
+  const ubicacionInput = document.getElementById("ubicacion");
+  const delitoInput = document.getElementById("delito");
+  const fechaHora = document.getElementById("fechaHora");
 
-function updateDateTime() {
-  const now = new Date();
-  const formatted = now.toLocaleString();
-  document.getElementById("datetime").textContent = formatted;
-}
+  // Mostrar fecha y hora actual
+  const ahora = new Date();
+  fechaHora.textContent = ahora.toLocaleString("es-CL");
 
-function enviarReporte() {
-  const ubicacion = document.getElementById("location").value;
-  const delito = document.getElementById("tipoDelito").value;
-  const fechaHora = document.getElementById("datetime").textContent;
+  // Obtener ubicación
+  boton.addEventListener("click", function () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          ubicacionInput.value = `${lat}, ${lng}`;
+        },
+        function () {
+          alert("No se pudo obtener la ubicación.");
+        }
+      );
+    } else {
+      alert("Tu navegador no permite obtener ubicación.");
+    }
+  });
 
-  if (!ubicacion || !delito) {
-    alert("Por favor completa todos los campos.");
-    return;
-  }
+  // Enviar datos
+  document.getElementById("formulario").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  alert("Reporte enviado:\n" + delito + "\nUbicación: " + ubicacion + "\n" + fechaHora);
-}
-
-updateDateTime();
-setInterval(updateDateTime, 1000);
+    fetch("https://script.google.com/macros/s/AKfycbcyOtzB7m9ArflaWZqh6qs8L3bLw0qqORKvN3UYHgGpKRIS8oQ_HCFTR9vhJQu1CtwQk/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        fechaHora: fechaHora.textContent,
+        ubicacion: ubicacionInput.value,
+        delito: delitoInput.value
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(res => res.text())
+    .then(data => {
+      alert("Reporte enviado correctamente.");
+      delitoInput.value = "";
+      ubicacionInput.value = "";
+    })
+    .catch(err => {
+      alert("Hubo un error al enviar el reporte.");
+    });
+  });
+});
